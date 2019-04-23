@@ -56,3 +56,13 @@ nav ul li:hover {
   width: 100%;
   position: relative;
 }
+
+.imgContainer {
+  position: relative;
+  bottom: 140px;
+  z-index: 1;
+}
+
+.img {
+  position: absolute;
+}
