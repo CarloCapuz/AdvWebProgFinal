@@ -28,14 +28,16 @@ $imageSQL ="CREATE TABLE `Image` (
 	`AltText` VARCHAR(255),
 	PRIMARY KEY (`ImageID`),
 	FOREIGN KEY (AttractionsID) REFERENCES `Attractions` (AttractionsID)
-) ENGINE=innodb DEFAULT CHARSET=utf8;" ;
+) ENGINE=innodb DEFAULT CHARSET=utf8;";
+
 $db->execute($imageSQL);
 
 $activityTypeSQL ="CREATE TABLE `ActivityType` (
 	`TypeID` INTEGER NOT NULL AUTO_INCREMENT,
 	`TypeName` VARCHAR(255) UNIQUE,
 	PRIMARY KEY (`TypeID`)
-);" ;
+);";
+
 $db->execute($activityTypeSQL);
 
 $typeAssocSQL ="CREATE TABLE `TypeAssoc` (
@@ -43,7 +45,8 @@ $typeAssocSQL ="CREATE TABLE `TypeAssoc` (
 	`TypeID` INT,
 	FOREIGN KEY (AttractionsID) REFERENCES `Attractions` (AttractionsID),
 	FOREIGN KEY (TypeID) REFERENCES `ActivityType` (TypeID)
-	);" ;
+);";
+    
 $db->execute($typeAssocSQL);
 
 echo "INSTALLED";
