@@ -1,7 +1,7 @@
 <?php
 define('DBHOST', 'localhost');
-define('DBNAME', 'places');
-define('DBUSER', 'testuser');
-define('DBPASS', 'midtermproject');
-define('DBCONNSTRING','mysql:dbname=places;charset=utf8mb4;');
+define('DBNAME', 'dev');
+define('DBUSER', 'test');
+define('DBPASS', 'test');
+define('DBCONNSTRING','mysql:dbname=dev;charset=utf8mb4;');
 ?>
