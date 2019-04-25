@@ -46,21 +46,23 @@ session_start();
 
 function outputAttractions() {
 
-    /*while ($row = $result->fetch()) {
+    global $pdo;
+    $sql = 'select Name, Address, City, Region, Postal, Website, Phone from attractions order by name';
+    $result = $pdo->query($sql);
+
+    while ($row = $result->fetch()) {
         // set the variables
         $name = $row['Name'];
         $address = $row['Address'];
         $cityRegionAndPostal = $row['City'] . ", " . $row['Region'] . " " . $row['Postal'];
         $phone = $row['Phone'];
-        $website = $row['Website'];*/
-        $name = Activity::getName();
-        $website = Activity::getWebsite();
+        $website = $row['Website'];
 
-        echo "<a href='self::$website' target='_blank'><h2>$name</h2></a>";
-//        echo "<h7>$address</h7><br>";
-//        echo "<h7>$cityRegionAndPostal</h7><br>";
-//        echo "<h7>$phone</h7>";
-    //}
+        echo "<a href='$website' target='_blank'><h2>$name</h2></a>";
+        echo "<h7>$address</h7><br>";
+        echo "<h7>$cityRegionAndPostal</h7><br>";
+        echo "<h7>$phone</h7>";
+    }
 }
 
 function outputActivities() {
