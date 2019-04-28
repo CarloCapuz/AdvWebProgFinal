@@ -32,9 +32,7 @@ catch (PDOException $e) {
 
 <body>
 
-<div class="category-head" id="activities-list">
-    Activities
-</div>
+
 
 <a href="index.php"><h1 class="bigheader">WELCOME TO CONCORD</h1></a>
 
@@ -48,35 +46,47 @@ catch (PDOException $e) {
       <a href="?page=reset"><li>RESET</li></a>
 
 
-      <script>
-    const genActivity = (activity) => {
+    <script>
+        const genActivity = (activity) => {
         const el = document.createElement('div');
         el.innerHTML = `<div class="activity">
                     <div class="activity-icon">
                         <i class="fas fa-info"></i>
                     </div>
                     <div class="activity-title">
+                        <a href='${activity["Website"]}' target='_blank'><h2>${activity["Name"]}</h2></a> 
+                    </div>
+                    <div class="activity-title">
                         ${activity['Name']}
                     </div>
                     <div class="activity-description">
-                        ${activity['activity_description']}
+                        ${activity['Address']}
                     </div>
                     <div class="activity-topics">
-                        ${activity['activity_location']}
+                        ${activity['City']}
+                    </div>
+                    <div class="activity-topics">
+                        ${activity['Region']}
+                    </div>
+                    <div class="activity-topics">
+                        ${activity['Postal']}
+                    </div>
+                    <div class="activity-topics">
+                        ${activity['Phone']}
                     </div>
                 </div>`;
         document.getElementById('activities-list').appendChild(el);
-    };
+        };
 
-    const fetchActivities = async () => {
-        let activities = await fetch('BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
-        console.log(activities);
-        activities.forEach(activity=>{
-            genActivity(activity);
-        });
-        return activities;
-    };
-</script>
+        const fetchActivities = async () => {
+            let activities = await fetch('BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
+            console.log(activities);
+            activities.forEach(activity=>{
+                genActivity(activity);
+            });
+            return activities;
+        };
+    </script>
 
 <?php
 session_start();
@@ -129,6 +139,9 @@ if( isset($_GET['page'])){
       } // end if
       else if ($_GET['page'] == 'activities') {   // ACTIVITIES tab
           echo "<script>fetchActivities()</script>";
+          ?>
+          <div class="category-head" id="activities-list"></div>
+          <?php
       } // end else if
 } // end if isset
 
