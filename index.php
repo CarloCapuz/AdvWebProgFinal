@@ -27,7 +27,7 @@ catch (PDOException $e) {
 
 <!-- Link your CSS -->
 <link href="midterm.css" rel="stylesheet"/>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -48,9 +48,23 @@ catch (PDOException $e) {
     <a href="?page=attractions"><li>ATTRACTIONS</li></a>
       <a href="?page=activities"><li>ACTIVITIES</li></a>
       <a href="?page=reset"><li>RESET</li></a>
+      <li><form action="">
+    <select name="filter">
+        <option value="name">Name</option>
+        <option value="address">Address</option>
+        <option value="city">City</option>
+        <option value="region">Region</option>
+        <option value="postal">Postal</option>
+        <option value="description">Description</option>
+    </select>
+    <input type="submit" onclick="setFilter()">
+    </form></li>
 
 
     <script>
+
+        var filtered = false;
+        var results = [];
         const genActivity = (activity) => {
         const el = document.createElement('div');
         el.innerHTML = `<div class="activity">
@@ -85,18 +99,46 @@ catch (PDOException $e) {
         const fetchActivities = async () => {
             let activities = await fetch('BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
             console.log(activities);
-            activities.forEach(activity=>{
+                activities.forEach(activity=>{
                 genActivity(activity);
-            });
             return activities;
-        };
+            });
+        }
+
+        const fetchSortedActivities = async () => {
+            let activities = await fetch('BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
+            console.log(activities);
+
+            results = activities.sort(dynamicSort("Name"));
+                console.log("Sorted results: " + results);
+                results.forEach(activity=>{
+                genActivity(activity);
+            return results;
+            });
+        }
+        
+        function dynamicSort(property) {
+            var sortOrder = 1;
+
+            if(property[0] === "-") {
+                sortOrder = -1;
+                property = property.substr(1);
+            }
+
+            return function (a,b) {
+                if(sortOrder == -1){
+                    return b[property].localeCompare(a[property]);
+                } else {
+                    return a[property].localeCompare(b[property]);
+                }        
+            }
+        }
     </script>
 
 <?php
 session_start();
 
 function outputAttractions() {
-
     global $pdo;
     $sql = 'select Name, Address, City, Region, Postal, Website, Phone from attractions order by name';
     $result = $pdo->query($sql);
@@ -122,7 +164,7 @@ if( isset($_GET['page'])){
           outputAttractions();
       } // end if
       else if ($_GET['page'] == 'activities') {   // ACTIVITIES tab
-          echo "<script>fetchActivities()</script>";
+          echo "<div id='activities'><script>fetchActivities()</script></div>";
           ?>
           <div class="category-head" id="activities-list"></div>
           <?php
@@ -132,10 +174,26 @@ if( isset($_GET['page'])){
 if ($_SESSION['Page'] == 'attractions'){
     outputAttractions();
 } else if ($_SESSION['Page'] == 'activities'){
-    //echo "<script>fetchActivities()</script>";
+   if (isset($_GET['filter'])) {
+        echo "<div id='activities'><script>fetchSortedActivities()</script></div>";
+    } else {
+        echo "<div id='activities'><script>fetchActivities()</script></div>";
+    }
+
+    ?>
+    <div class="category-head" id="activities-list"></div>
+    <?php
 } else {
     unset($_SESSION['page']);
-}
+} 
+
+//else if (isset($_GET['filter'])) {
+   // echo "<div id='activities'><script>fetchSortedActivities()</script></div>";
+    ?>
+    <div class="category-head" id="activities-list"></div>
+    <?php
+//} 
+
 
 
 
