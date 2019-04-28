@@ -36,6 +36,10 @@ catch (PDOException $e) {
 
 <a href="index.php"><h1 class="bigheader">WELCOME TO CONCORD</h1></a>
 
+<div class="imgContainer">
+  <img class="img" src="ConcordLogo2.0.png" />
+</div>
+
 <!-- Header -->
 <nav>
   <ul>
@@ -112,26 +116,6 @@ function outputAttractions() {
     }
 }
 
-function outputActivities() {
-    // global $pdo;
-    // $sql = 'select Name, ActivityName, Address, City, Region, Postal, Website from attractions where ActivityName IS NOT NULL order by name';
-    // $result = $pdo->query($sql);
-
-    // while ($row = $result->fetch()) {
-    //     // set the variables
-    //     $name = $row['Name'];
-    //     $address = $row['Address'];
-    //     $cityRegionAndPostal = $row['City'] . ", " . $row['Region'] . " " . $row['Postal'];
-    //     $activity = $row['ActivityName'];
-    //     $website = $row['Website'];
-
-    //     echo "<a href='$website' target='_blank'><h2>$name</h2></a>";
-    //     echo "<h7>$activity</h7><br>";
-    //     echo "<h7>$address</h7><br>";
-    //     echo "<h7>$cityRegionAndPostal</h7>";
-    // }
-}
-
 if( isset($_GET['page'])){
   $_SESSION['Page'] = $_GET['page'];
       if ($_GET['page'] == 'attractions') {   // ATTRACTIONS tab
@@ -148,7 +132,7 @@ if( isset($_GET['page'])){
 if ($_SESSION['Page'] == 'attractions'){
     outputAttractions();
 } else if ($_SESSION['Page'] == 'activities'){
-    outputActivities();
+    //echo "<script>fetchActivities()</script>";
 } else {
     unset($_SESSION['page']);
 }
