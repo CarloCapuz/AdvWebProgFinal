@@ -136,7 +136,7 @@ catch (PDOException $e) {
     </script>
 
 <?php
-session_start();
+// session_start();
 
 function outputAttractions() {
     global $pdo;
