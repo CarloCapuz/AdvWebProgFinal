@@ -60,21 +60,21 @@ CREATE TABLE `Image` (
 
 SET autocommit=1;
 
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (1, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\Canterbury Shaker Village.jpg', 'Canterbury Shaker Village');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (2, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\McAuliffe-Shepard-Discover-Center.jpg', 'McAuliffe-Shepard Discovery Center');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (3, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\McLane-Center.jpg', 'NH Audubon McLane Center');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (4, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\stocknhstatehouse.jpg', 'New Hampshire State House');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (5, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\BB State Park.jpg', 'Bear Brook State Park');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (6, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\chucksters.jpg', 'Chuckster''s');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (7, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\whitepark.jpg', 'White Park');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (8, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\NH historical society.jpg', 'New Hampshire Historical Society');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (9, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\Piercemanse.jpg', 'The Pierce Manse');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (10, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\winant-park.jpg', 'Winant Park');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (11, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\oldnorthcemetery.jpg', 'Old North Cemetery');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (12, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\MBE Historic House.jpg', 'Mary Baker Eddy Historic House');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (13, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\MerrimackRiverGreenwayTrail.jpg', 'Merrimack River Greenway Trail');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (14, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\terrillpark.jpg', 'West Terrill Park');
-INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (15, 'C:\\xampp\\htdocs\\projects\\Midterm Project Updated\\Midterm Project\\Pictures\\Society for the protection of NH forests.jpg', 'Society for the Protection of NH Forests');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (1, '\\Pictures\\Canterbury Shaker Village.jpg', 'Canterbury Shaker Village');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (2, '\\Pictures\\McAuliffe-Shepard-Discovery-Center.jpg', 'McAuliffe-Shepard Discovery Center');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (3, '\\Pictures\\McLane-Center.jpg', 'NH Audubon McLane Center');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (4, '\\Pictures\\stocknhstatehouse.jpg', 'New Hampshire State House');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (5, '\\Pictures\\BB State Park.jpg', 'Bear Brook State Park');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (6, '\\Pictures\\chucksters.jpg', 'Chuckster''s');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (7, '\\Pictures\\whitepark.jpg', 'White Park');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (8, '\\Pictures\\NH historical society.jpg', 'New Hampshire Historical Society');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (9, '\\Pictures\\Piercemanse.jpg', 'The Pierce Manse');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (10, '\\Pictures\\winant-park.jpg', 'Winant Park');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (11, '\\Pictures\\oldnorthcemetery.jpg', 'Old North Cemetery');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (12, '\\Pictures\\MBE Historic House.jpg', 'Mary Baker Eddy Historic House');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (13, '\\Pictures\\MerrimackRiverGreenwayTrail.jpg', 'Merrimack River Greenway Trail');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (14, '\\Pictures\\terrillpark.jpg', 'West Terrill Park');
+INSERT INTO `Image` (`AttractionsID`, `FilePath`, `AltText`) VALUES (15, '\\Pictures\\Society for the protection of NH forests.jpg', 'Society for the Protection of NH Forests');
 
 CREATE TABLE `ActivityType` (
 	`TypeID` INTEGER NOT NULL AUTO_INCREMENT,
@@ -86,7 +86,7 @@ CREATE TABLE `ActivityType` (
 	INSERT INTO `ActivityType` (`TypeName`) VALUES ('Interactive');
 	INSERT INTO `ActivityType` (`TypeName`) VALUES ('Museums');
 	INSERT INTO `ActivityType` (`TypeName`) VALUES ('Parks');
-	
+
 	CREATE TABLE `TypeAssoc` (
 	`AttractionsID` INT,
 	`TypeID` INT,
