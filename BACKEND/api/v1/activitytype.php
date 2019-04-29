@@ -2,27 +2,16 @@
 
 include_once "../../models/ActivityType.php";
 
+// activitytype.php?create&typeName=Name
 
-if (isset($_GET['create']) && isset($_GET['typeName']) && isset($_GET['typeDescription']))
+if (isset($_GET['create']) && isset($_GET['typeName']))
 {
-    ActivityType::create($_GET['typeName'], $_GET['typeDescription']);
-    $type = [];
-    $type[] = $_GET['typeName'];
-    $type[] = $_GET['typeDescription'];
+    $typeData = ActivityTypeModel::create($_GET['typeName']);
+    $type = new ActivityType($typeData);
     print_r(json_encode($type));
 }
 
 if (isset($_GET['getAll']))
 {
-    $allTypesReturn = ActivityType::getAll();
-    $allTypesJson = [];
-    foreach ($allTypesReturn as $row)
-    {
-        $type = [];
-        $type[] = $row['type_name'];
-        $type[] = $row['type_description'];
-        $type[] = $row['ID'];
-        $allTypesJson[] = $type;
-    }
-    print_r(json_encode($allTypesJson));
+    print_r(json_encode(ActivtyTypeModel::getAll()));
 }

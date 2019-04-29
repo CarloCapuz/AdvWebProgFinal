@@ -1,0 +1,68 @@
+/* get font */
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+/* html and body design */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* body's background image and size */
+body {
+  background-image: url("concord.jpg");
+  background-size: cover;
+}
+
+/* header link design */
+a {
+  color: #e2ebf7;
+  font-family: Raleway;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+/* header design */
+nav ul {
+  background-color: #B22222;
+  color: #e2ebf7;
+  margin: 0;
+  padding: 0;
+  opacity: .8;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* header list design */
+nav ul li {
+  display: inline-block;
+  padding: 20px;
+}
+
+/* header hover design */
+nav ul li:hover {
+  background-color: #8B0000;
+}
+
+/* WELCOME TO CONCORD header design */
+.bigheader {
+  background-color: #8B0000;
+  color: #e2ebf7;
+  font-size: 75px;
+  font-family: Raleway;
+  opacity: .8;
+  text-align: center;
+  margin: 0;
+  padding: 20px 0;
+  width: 100%;
+  position: relative;
+}
+
+.imgContainer {
+  position: relative;
+  bottom: 140px;
+  z-index: 1;
+}
+
+.img {
+  position: absolute;
+}

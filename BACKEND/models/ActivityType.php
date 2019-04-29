@@ -1,23 +1,21 @@
 <?php
-include_once "C:\\xampp\htdocs\Activities\core\database.php";
+include_once dirname(__FILE__) . "\..\core\database.php";
 
-class ActivityType
+class ActivityTypeModel
 {
-    public static function create($activityType, $typeDescription)
+    public static function create($typeName)
     {
         $db = Database::getInstance();
         $type = array(
-            'type_name' => strip_tags($activityType),
-            'type_description' => strip_tags($typeDescription)
+            'TypeName' => strip_tags($typeName)
         );
-        $db->insert('activity_type', $type);
+        $db->insert('ActivityType', $type);
     }
 
-    public static function getByID($activityID)
+    public static function getByType($activityType)
     {
         $db = Database::getInstance();
-
-        $arr = $db->select('activity_type', 'id=?', [$activityID]);
+        $arr = $db->select('ActivityType', 'TypeID=?', [$activityType]);
         if ($arr) {
             return $arr;
         }
@@ -27,7 +25,6 @@ class ActivityType
     public static function getAll()
     {
         $db = Database::getInstance();
-
-        return $db->query('SELECT * FROM activity_type');
+        return $db->query('SELECT * FROM ActivityType');
     }
 }

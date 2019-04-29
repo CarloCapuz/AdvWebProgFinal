@@ -16,18 +16,32 @@ class ActivtyModel implements ActivityInterface
             'Postal' => strip_tags($Postal),
             'Phone' => strip_tags($Phone),
             'Website' => strip_tags($Website),
-            'Description' => strip_tags($ActivityName)
+            'Description' => strip_tags($ActivityName),
+            'TypeID' => strip_tags($ActivityName)
         ];
-        $db->insert('Attractions', $activity);
+        $db->insert('Activities', $activity);
         return $activity;
+    }
+
+    public static function getByType($typeID)
+    {
+        $db = Database::getInstancec();
+
+        $arr = $db->select('Activities', 'TypeID=?', [$typeID]);
+        if ($arr)
+        {
+            return $arr;
+        }
+        return false;
     }
 
     public static function getByID($activityID)
     {
         $db = Database::getInstance();
 
-        $arr = $db->select('Attractions', 'id=?', [$activityID]);
-        if ($arr) {
+        $arr = $db->select('Activities', 'ActivityID=?', [$activityID]);
+        if ($arr) 
+        {
             return $arr;
         }
         return false;
@@ -36,13 +50,7 @@ class ActivtyModel implements ActivityInterface
     public static function getAll()
     {
         $db = Database::getInstance();
-        return $db->query('SELECT * FROM Attractions');
-    }
-
-    public static function readAll()
-    {
-        $db = Database::getInstance();
-        $data = $db->query('SELECT * FROM Attractions');
+        $data = $db->query('SELECT * FROM Activities');
         $activitiesList = [];
         foreach ($data as $row)
         {

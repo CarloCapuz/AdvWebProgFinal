@@ -32,5 +32,5 @@ if (isset($_GET['create']) &&
 
 if (isset($_GET['getAll']))
 {
-    print_r(json_encode(ActivtyModel::readAll()));
+    print_r(json_encode(ActivtyModel::getAll()));
 }
