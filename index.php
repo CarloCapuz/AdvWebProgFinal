@@ -171,7 +171,7 @@ if( isset($_GET['page'])){
       } // end else if
 } // end if isset
 
-/*if ($_SESSION['Page'] == 'attractions'){
+if ($_SESSION['Page'] == 'attractions'){
     outputAttractions();
 } else if ($_SESSION['Page'] == 'activities'){
    if (isset($_GET['filter'])) {
@@ -185,19 +185,16 @@ if( isset($_GET['page'])){
     <?php
 } else {
     unset($_SESSION['page']);
-}*/ 
+} 
 
-//else if (isset($_GET['filter'])) {
-   // echo "<div id='activities'><script>fetchSortedActivities()</script></div>";
+else if (isset($_GET['filter'])) {
+    echo "<div id='activities'><script>fetchSortedActivities()</script></div>";
     ?>
     <div class="category-head" id="activities-list"></div>
     <?php
-//} 
+} 
 
 
-
-
-// There are no vulnerabilities for a URL attack because of my code structure. I'm not pulling up the database by using $_GET, I'm manually pulling it up instead of using $_GET.
 ?>
 
 
