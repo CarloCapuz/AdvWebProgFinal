@@ -139,7 +139,7 @@ catch (PDOException $e) {
                 $picture = $row['FilePath'];
 
                 echo "<a href='$website' target='_blank'><h2>$name</h2></a>";
-                echo "<img src='$picture' /><br>";
+                echo "<img src='$picture' style='width:500px;height:600px;/><br>";
                 echo "<h7>$address</h7><br>";
                 echo "<h7>$cityRegionAndPostal</h7><br>";
                 echo "<h7>$phone</h7>";
