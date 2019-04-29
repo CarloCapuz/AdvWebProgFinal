@@ -171,7 +171,7 @@ if( isset($_GET['page'])){
       } // end else if
 } // end if isset
 
-if ($_SESSION['Page'] == 'attractions'){
+/*if ($_SESSION['Page'] == 'attractions'){
     outputAttractions();
 } else if ($_SESSION['Page'] == 'activities'){
    if (isset($_GET['filter'])) {
@@ -185,7 +185,7 @@ if ($_SESSION['Page'] == 'attractions'){
     <?php
 } else {
     unset($_SESSION['page']);
-} 
+}*/ 
 
 //else if (isset($_GET['filter'])) {
    // echo "<div id='activities'><script>fetchSortedActivities()</script></div>";
