@@ -20,9 +20,14 @@ catch (PDOException $e) {
 
     <title> Final Project</title>
 
-    <!-- Link your CSS -->
-    <link href="midterm.css" rel="stylesheet"/>
+    <!-- Link your CSS and Bootstrap -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href="midterm.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    
 </head>
 
 <body>
@@ -139,7 +144,7 @@ catch (PDOException $e) {
                 $picture = $row['FilePath'];
 
                 echo "<a href='$website' target='_blank'><h2>$name</h2></a>";
-                echo "<img src='$picture' style='width:500px;height:600px;/><br>";
+                echo "<img src='$picture' class='img-rounded' width='500px' height='600px'/><br>";
                 echo "<h7>$address</h7><br>";
                 echo "<h7>$cityRegionAndPostal</h7><br>";
                 echo "<h7>$phone</h7>";
