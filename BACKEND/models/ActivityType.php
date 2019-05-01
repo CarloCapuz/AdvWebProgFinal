@@ -11,7 +11,8 @@ class ActivityTypeModel implements ActivityTypeInterface
         $type = array(
             'TypeName' => strip_tags($typeName)
         );
-        $db->insert('ActivityType', $type);
+        $test = $db->insert('ActivityType', $type);
+        return $type;
     }
 
     public static function getByType($activityType)
@@ -27,6 +28,12 @@ class ActivityTypeModel implements ActivityTypeInterface
     public static function getAll()
     {
         $db = Database::getInstance();
-        return $db->query('SELECT * FROM ActivityType');
+        $data = $db->query('SELECT * FROM ActivityType');
+        $activitiesList = [];
+        foreach ($data as $row)
+        {
+            $activitiesList[] = new ActivityType($row, true);
+        }
+        return $activitiesList;
     }
 }

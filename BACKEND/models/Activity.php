@@ -1,11 +1,15 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include_once dirname(__FILE__) . "\..\core\database.php";
 include_once dirname(__FILE__) . "\..\objects\Activity.php";
 include_once dirname(__FILE__) . "\..\interfaces\Activity.php";
 
 class ActivtyModel implements ActivityInterface
 {
-    public static function create($Name,$Address,$City,$Region,$Postal,$Phone,$Website,$ActivityName)
+    public static function create($Name,$Address,$City,$Region,$Postal,$Phone,$Website,$ActivityName,$ActivityType)
     {
         $db = Database::getInstance();
         $activity = [
@@ -17,7 +21,7 @@ class ActivtyModel implements ActivityInterface
             'Phone' => strip_tags($Phone),
             'Website' => strip_tags($Website),
             'Description' => strip_tags($ActivityName),
-            'TypeID' => strip_tags($ActivityName)
+            'TypeID' => strip_tags($ActivityType)
         ];
         $db->insert('Activities', $activity);
         return $activity;

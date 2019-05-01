@@ -7,7 +7,7 @@ include_once "../../objects/ActivityType.php";
 if (isset($_GET['create']) && isset($_GET['typeName']))
 {
     $typeData = ActivityTypeModel::create($_GET['typeName']);
-    $type = new ActivityType($typeData);
+    $type = new ActivityType($typeData, false);
     print_r(json_encode($type));
 }
 

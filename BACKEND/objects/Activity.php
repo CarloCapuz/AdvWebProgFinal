@@ -11,8 +11,9 @@ class Activity implements JsonSerializable
     public $Phone;
     public $Website;
     public $Description;
+    public $TypeID;
 
-    public function Activity($activityArray)
+    public function __construct($activityArray)
     {
         $this->Name = $activityArray['Name'];
         $this->Address = $activityArray['Address'];
@@ -22,6 +23,7 @@ class Activity implements JsonSerializable
         $this->Phone = $activityArray['Phone'];
         $this->Website = $activityArray['Website'];
         $this->Description = $activityArray['Description'];        
+        $this->TypeID = $activityArray['TypeID'];        
     }
 
     public function jsonSerialize()
@@ -35,6 +37,7 @@ class Activity implements JsonSerializable
             'Phone' => $this->Phone,
             'Website' => $this->Website,
             'Description' => $this->Description,
+            'TypeID' => $this->TypeID,
         ];
     }
 }

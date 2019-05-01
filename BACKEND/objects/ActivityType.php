@@ -6,17 +6,21 @@ class ActivityType implements JsonSerializable
     public $Name;
     public $ID;
 
-    public function ActivityType($typeArray)
+    public function __construct($typeArray, $useID)
     {
-        $this->Name = $activityArray['TypeName'];
-        $this->ID = $activityArray['TypeID'];  
+        $this->Name = $typeArray['TypeName'];
+        if ($useID) {
+            $this->ID = $typeArray['TypeID'];
+        } else {
+            $this->ID = 0;
+        }
     }
 
     public function jsonSerialize()
     {
         return [
-            'ID' => $this->ID,
             'Name' => $this->Name,
+            'ID' => $this->ID,
         ];
     }
 }

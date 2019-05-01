@@ -4,9 +4,9 @@ class Database {
     private $conn;
 
     private $host = 'localhost';
-    private $user = 'testuser';
-    private $pass = 'midtermproject';
-    private $name = 'places';
+    private $user = 'test';
+    private $pass = 'test';
+    private $name = 'dev';
 
     private function __construct()
     {
