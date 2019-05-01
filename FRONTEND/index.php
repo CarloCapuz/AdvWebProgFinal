@@ -131,7 +131,7 @@ catch (PDOException $e) {
         //session_start();
         function outputAttractions() {
             global $pdo;
-            $sql = 'SELECT attractions.AttractionsID, attractions.Name, attractions.Address, attractions.City, attractions.Region, attractions.Postal, attractions.Website, attractions.Phone, image.FilePath FROM attractions INNER JOIN image ON attractions.AttractionsID = image.AttractionsID ORDER BY NAME';
+            $sql = 'SELECT attractions.AttractionsID, attractions.Name, attractions.Address, attractions.City, attractions.Region, attractions.Postal, attractions.Website, attractions.Phone, attractions.description, image.FilePath FROM attractions INNER JOIN image ON attractions.AttractionsID = image.AttractionsID ORDER BY NAME';
             $result = $pdo->query($sql);
 
             while ($row = $result->fetch()) {
@@ -142,12 +142,14 @@ catch (PDOException $e) {
                 $phone = $row['Phone'];
                 $website = $row['Website'];
                 $picture = $row['FilePath'];
+                $activity = $row['description'];
 
                 echo "<a href='$website' target='_blank'><h2>$name</h2></a>";
                 echo "<img src='$picture' class='img-rounded' width='500px' height='600px'/><br>";
                 echo "<h7>$address</h7><br>";
                 echo "<h7>$cityRegionAndPostal</h7><br>";
-                echo "<h7>$phone</h7>";
+                echo "<h7>$phone</h7><br>";
+                echo "<h7>$activity</h7>";
             }
         }
         if( isset($_GET['page'])){
