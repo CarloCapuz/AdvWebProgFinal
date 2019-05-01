@@ -1,11 +1,11 @@
 <?php
 // add the config.php to access database
-require_once('config.php');
+//require_once('config.php');
 require_once ('Activity.php');
 require_once ('ActivityDao.php');
 require_once ('ActivityDaoMaria.php');
 try {
-    $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
+    $pdo = new PDO("mysql:dbname=places;charset=utf8mb4", "testuser", "midtermproject");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch (PDOException $e) {
@@ -46,7 +46,7 @@ catch (PDOException $e) {
         <a href="?page=attractions"><li>ATTRACTIONS</li></a>
         <a href="?page=activities"><li>ACTIVITIES</li></a>
         <a href="?page=reset"><li>RESET</li></a>
-        <li><form action="">
+        <li class="filter"><form action="">
                 <select name="filter">
                     <option value="name">Name</option>
                     <option value="address">Address</option>
@@ -55,7 +55,7 @@ catch (PDOException $e) {
                     <option value="postal">Postal</option>
                     <option value="description">Description</option>
                 </select>
-                <input type="submit" onclick="setFilter()">
+                <input type="submit">
             </form></li>
 
 
@@ -93,7 +93,7 @@ catch (PDOException $e) {
                 document.getElementById('activities-list').appendChild(el);
             };
             const fetchActivities = async () => {
-                let activities = await fetch('BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
+                let activities = await fetch('../BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
                 console.log(activities);
                 activities.forEach(activity=>{
                     genActivity(activity);
@@ -101,7 +101,7 @@ catch (PDOException $e) {
                 });
             }
             const fetchSortedActivities = async () => {
-                let activities = await fetch('BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
+                let activities = await fetch('../BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
                 console.log(activities);
                 results = activities.sort(dynamicSort("Name"));
                 console.log("Sorted results: " + results);
@@ -129,6 +129,7 @@ catch (PDOException $e) {
 
         <?php
         //session_start();
+
         function outputAttractions() {
             global $pdo;
             $sql = 'SELECT attractions.AttractionsID, attractions.Name, attractions.Address, attractions.City, attractions.Region, attractions.Postal, attractions.Website, attractions.Phone, attractions.description, image.FilePath FROM attractions INNER JOIN image ON attractions.AttractionsID = image.AttractionsID ORDER BY NAME';
@@ -152,18 +153,28 @@ catch (PDOException $e) {
                 echo "<h7>$activity</h7>";
             }
         }
+
         if( isset($_GET['page'])){
             $_SESSION['Page'] = $_GET['page'];
-            if ($_GET['page'] == 'attractions') {   // ATTRACTIONS tab
-                outputAttractions();
+            if ($_GET['page'] == 'attractions' || isset($_GET['filter'])) {   // ATTRACTIONS tab
+               // outputAttractions();
+                if (isset($_GET['filter'])) {
+                    echo "<div id='activities'><script>fetchSortedActivities()</script></div>";    
+                } else {
+                    echo "<div id='activities'><script>fetchActivities()</script></div>";
+                }
             } // end if
-            else if ($_GET['page'] == 'activities') {   // ACTIVITIES tab
-                echo "<div id='activities'><script>fetchActivities()</script></div>";
-                ?>
-                <div class="category-head" id="activities-list"></div>
-                <?php
-            } // end else if
+           // else if ($_GET['page'] == 'activities') {   // ACTIVITIES tab
+                // if (isset($_GET['filter'])) {
+                //     echo "<div id='activities'><script>fetchSortedActivities()</script></div>";    
+                // } else {
+                //     echo "<div id='activities'><script>fetchActivities()</script></div>";
+                // }
+              
+           // } // end else if
         } // end if isset
+
+
         /*if ($_SESSION['Page'] == 'attractions'){
             outputAttractions();
         } else if ($_SESSION['Page'] == 'activities'){

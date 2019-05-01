@@ -66,3 +66,7 @@ nav ul li:hover {
 .img {
   position: absolute;
 }
+
+.filter {
+  color: black
+}
