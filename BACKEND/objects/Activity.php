@@ -19,6 +19,7 @@ class Activity implements JsonSerializable
     {
         $this->Name = $activityArray['Name'];
         $this->FilePath = isset($activityArray['FilePath']) ? $activityArray['FilePath'] : '/';
+        $this->ActivityID = isset($activityArray['AttractionsID']) ? $activityArray['AttractionsID'] : '0';
         $this->Address = $activityArray['Address'];
         $this->City = $activityArray['City'];
         $this->Region = $activityArray['Region'];
@@ -32,6 +33,7 @@ class Activity implements JsonSerializable
     public function jsonSerialize()
     {
         return [
+            'AttractionID' => $this->ActivityID,
             'FilePath' => $this->FilePath,
             'Name' => $this->Name,
             'Address' => $this->Address,
