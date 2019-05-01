@@ -1,17 +1,7 @@
-<?php
-// require_once ('Activity.php');
-// require_once ('ActivityDao.php');
-// require_once ('ActivityDaoMaria.php');
-
-?>
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <title> Final Project</title>
-
     <!-- Link your CSS and Bootstrap -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,11 +9,8 @@
     <link href="midterm.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    
 </head>
-
 <body>
-
 <a href="index.php"><h1 class="bigheader">WELCOME TO CONCORD</h1></a>
 
 <div class="imgContainer">
@@ -35,6 +22,7 @@
     <ul>
         <a href="https://www.britannica.com/place/Concord-New-Hampshire" target="_blank"><li>HISTORY</li></a>
         <a href="?page=attractions"><li>ATTRACTIONS</li></a>
+       
         <li class="filter"><form action="index.php" method="GET">
                 <select name="filter">
                     <option value="name">Name</option>
@@ -49,7 +37,6 @@
         <script>
             var sortt = "";
             var results = [];
-
             const cleanNull = (input) => input == null ? '' : input;
 
             const genActivity = ({Website, Name, Address, City, Postal, Region, Phone, Description, FilePath}) => {
@@ -125,27 +112,18 @@
             }
         </script>
         <?php
-
+        
         if( isset($_GET['page'])){
             if ($_GET['page'] == 'attractions') {
                 echo "<div id='activities'><script>fetchActivities();</script></div>";
             } 
         } // end if
 
-        $getFilter = $_GET['filter']
-        $issetfilter = isset($_GET['filter']);
-
-        if ($issetFilter) && $getFilter == 'name') {
-            echo "<div id='activities'><script>fetchSortedActivities('Name');</script></div>";   
-        } else if ($issetFilter) && $getFilter == 'address') {
-            echo "<div id='activities'><script>fetchSortedActivities('Address');</script></div>";
-        } else if ($issetFilter) && $getFilter == 'city') {
-            echo "<div id='activities'><script>fetchSortedActivities('City');</script></div>";
-        } else if ($issetFilter) && $getFilter == 'region') {
-            echo "<div id='activities'><script>fetchSortedActivities('Region');</script></div>";
-        } else if ($issetFilter) && $getFilter == 'postal') {
-            echo "<div id='activities'><script>fetchSortedActivities('Postal');</script></div>";
-        }
+        if (isset($_GET['filter']) && $_GET['filter'] == 'name') { echo "<div id='activities'><script>fetchSortedActivities('Name');</script></div>"; } 
+        else if (isset($_GET['filter']) && $_GET['filter'] == 'address') { echo "<div id='activities'><script>fetchSortedActivities('Address');</script></div>"; } 
+        else if (isset($_GET['filter']) && $_GET['filter'] == 'city') { echo "<div id='activities'><script>fetchSortedActivities('City');</script></div>"; } 
+        else if (isset($_GET['filter']) && $_GET['filter'] == 'region') { echo "<div id='activities'><script>fetchSortedActivities('Region');</script></div>"; } 
+        else if (isset($_GET['filter']) && $_GET['filter'] == 'postal') { echo "<div id='activities'><script>fetchSortedActivities('Postal');</script></div>"; }
         ?>
         <div class="category-head" id="activities-list"></div>
     </ul>
