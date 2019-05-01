@@ -44,6 +44,13 @@ class ActivtyModel implements ActivityInterface
         return $activity;
     }
 
+    public static function delete($id) 
+    {
+        $db = Database::getInstance();
+        $data = $db->execute('DELETE FROM attractions WHERE AttractionsID='.$id);
+        $data = $db->execute('DELETE FROM image WHERE AttractionsID='.$id);
+    }
+
     public static function getByType($typeID)
     {
         $db = Database::getInstancec();

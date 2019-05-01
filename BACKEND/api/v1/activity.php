@@ -64,6 +64,12 @@ if (isset($_GET['update']) &&
     print_r(json_encode($activity));
 }
 
+if (isset($_GET['delete']) && isset($_GET['ID']))
+{
+    $activityData = ActivtyModel::delete($_GET['ID']);
+    echo "[]";
+}
+
 if (isset($_GET['getAll']))
 {
     print_r(json_encode(ActivtyModel::getAll()));
