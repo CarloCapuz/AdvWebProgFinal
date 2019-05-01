@@ -34,7 +34,6 @@
 <nav>
     <ul>
         <a href="https://www.britannica.com/place/Concord-New-Hampshire" target="_blank"><li>HISTORY</li></a>
-
         <a href="?page=attractions"><li>ATTRACTIONS</li></a>
         <li class="filter"><form action="index.php" method="GET">
                 <select name="filter">
@@ -46,7 +45,6 @@
                 </select>
                 <input type="submit">
             </form></li>
-
 
         <script>
             var sortt = "";
@@ -86,9 +84,9 @@
             };
             const fetchActivities = async () => {
                 let activities = await fetch('../BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
-               // console.log(images);
                 console.log(activities);
                 for(let i=0; i<activities.length; i+=1) {
+                    removeDuplicates(activities[i])
                     genActivity(activities[i]);
                 }
             };
@@ -100,6 +98,7 @@
                 results = activities.sort(dynamicSort(sortt));
                 console.log("Sorted results: " + results);
                 for(let i=0; i<results.length; i+=1) {
+                    removeDuplicates(results[i])
                     genActivity(results[i]);
                 }
             };
@@ -119,35 +118,37 @@
                     }
                 }
             }
-        </script>
 
+            function removeDuplicates(array) {
+                //if (array is in other webservice)
+                //handle duplicates
+            }
+        </script>
         <?php
-        //session_start();
 
         if( isset($_GET['page'])){
-            //$_SESSION['Page'] = $_GET['page'];
-            if ($_GET['page'] == 'attractions') {   // ATTRACTIONS tab
+            if ($_GET['page'] == 'attractions') {
                 echo "<div id='activities'><script>fetchActivities();</script></div>";
             } 
-        } // end if isset
+        } // end if
 
-        if (isset($_GET['filter']) && $_GET['filter'] == 'name') {
+        $getFilter = $_GET['filter']
+        $issetfilter = isset($_GET['filter']);
+
+        if ($issetFilter) && $getFilter == 'name') {
             echo "<div id='activities'><script>fetchSortedActivities('Name');</script></div>";   
-        } else if (isset($_GET['filter']) && $_GET['filter'] == 'address') {
+        } else if ($issetFilter) && $getFilter == 'address') {
             echo "<div id='activities'><script>fetchSortedActivities('Address');</script></div>";
-        } else if (isset($_GET['filter']) && $_GET['filter'] == 'city') {
+        } else if ($issetFilter) && $getFilter == 'city') {
             echo "<div id='activities'><script>fetchSortedActivities('City');</script></div>";
-        } else if (isset($_GET['filter']) && $_GET['filter'] == 'region') {
+        } else if ($issetFilter) && $getFilter == 'region') {
             echo "<div id='activities'><script>fetchSortedActivities('Region');</script></div>";
-        } else if (isset($_GET['filter']) && $_GET['filter'] == 'postal') {
+        } else if ($issetFilter) && $getFilter == 'postal') {
             echo "<div id='activities'><script>fetchSortedActivities('Postal');</script></div>";
         }
-
         ?>
         <div class="category-head" id="activities-list"></div>
     </ul>
 </nav>
-
 </body>
-
 </html>
