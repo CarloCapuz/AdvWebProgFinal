@@ -1,11 +1,11 @@
 <?php
 // add the config.php to access database
-//require_once('config.php');
+require_once('config.php');
 require_once ('Activity.php');
 require_once ('ActivityDao.php');
 require_once ('ActivityDaoMaria.php');
 try {
-    $pdo = new PDO("mysql:dbname=places;charset=utf8mb4", "testuser", "midtermproject");
+    $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch (PDOException $e) {
