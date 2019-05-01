@@ -54,7 +54,7 @@ class ActivtyModel implements ActivityInterface
     public static function getAll()
     {
         $db = Database::getInstance();
-        $data = $db->query('SELECT * FROM Activities');
+        $data = $db->query('SELECT * FROM Attractions');
         $activitiesList = [];
         foreach ($data as $row)
         {
