@@ -17,8 +17,8 @@ if (isset($_GET['create']) &&
     isset($_GET['Postal']) &&
     isset($_GET['Phone']) &&
     isset($_GET['Website']) &&
-    isset($_GET['Description']) &&
-    isset($_GET['Type'])
+    isset($_GET['Description']) //&&
+    //isset($_GET['Type'])
     )
 {
     $activityData = ActivtyModel::create($_GET['Name'],
@@ -29,7 +29,7 @@ if (isset($_GET['create']) &&
                                          $_GET['Phone'],
                                          $_GET['Website'],
                                          $_GET['Description'],
-                                         $_GET['Type']
+                                      //   $_GET['Type']
                                         );
     $activity = new Activity($activityData);
     print_r(json_encode($activity));
@@ -38,4 +38,9 @@ if (isset($_GET['create']) &&
 if (isset($_GET['getAll']))
 {
     print_r(json_encode(ActivtyModel::getAll()));
+}
+
+if (isset($_GET['getImages']))
+{
+    print_r(json_encode(ActivtyModel::getImages()));
 }

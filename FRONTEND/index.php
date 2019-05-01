@@ -36,7 +36,6 @@
         <a href="https://www.britannica.com/place/Concord-New-Hampshire" target="_blank"><li>HISTORY</li></a>
 
         <a href="?page=attractions"><li>ATTRACTIONS</li></a>
-        <a href="?page=reset"><li>RESET</li></a>
         <li class="filter"><form action="index.php" method="GET">
                 <select name="filter">
                     <option value="name">Name</option>
@@ -52,43 +51,46 @@
         <script>
             var sortt = "";
             var results = [];
-            const genActivity = (activity) => {
+
+            const cleanNull = (input) => input == null ? '' : input;
+
+            const genActivity = ({Website, Name, Address, City, Postal, Region, Phone, Description, FilePath}) => {
                 const el = document.createElement('div');
                 el.innerHTML = `<div class="activity">
                     <div class="activity-icon">
                         <i class="fas fa-info"></i>
                     </div>
                     <div class="activity-title">
-                        <a href='${activity["Website"]}' target='_blank'><h2>${activity["Name"]}</h2></a>
+                        <a href='${cleanNull(Website)}' target='_blank'><h2>${cleanNull(Name)}</h2></a>
                     </div>
                     <div class="activity-title">
-                        <img src='${activity['FilePath']}' class='img-rounded' width='500px' height='600px'/><br>
+                        <img src='./${cleanNull(FilePath)}' class='img-rounded' width='500px' height='600px'/><br>
                     </div>
                     <div class="activity-title">
-                        ${activity['Name']}
+                        ${cleanNull(Name)}
                     </div>
                     <div class="activity-description">
-                        ${activity['Address']}
+                        ${cleanNull(Address)}
                     </div>
                     <div class="activity-topics">
-                        ${activity['City']}, ${activity['Region']} ${activity['Postal']}
+                        ${cleanNull(City)}, ${cleanNull(Region)} ${cleanNull(Postal)}
                     </div>
                     <div class="activity-topics">
-                        ${activity['Phone']}
+                        ${cleanNull(Phone)}
                     </div>
                     <div class="activity-topics">
-                        ${activity['Description']}
+                        ${cleanNull(Description)}
                     </div>
                 </div>`;
                 document.getElementById('activities-list').appendChild(el);
             };
             const fetchActivities = async () => {
                 let activities = await fetch('../BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
+               // console.log(images);
                 console.log(activities);
-                activities.forEach(activity=>{
-                    genActivity(activity);
-                    return activities;
-                });
+                for(let i=0; i<activities.length; i+=1) {
+                    genActivity(activities[i]);
+                }
             };
 
             const fetchSortedActivities = async (sortt) => {
@@ -97,10 +99,9 @@
                 console.log("Sortt: " + sortt);
                 results = activities.sort(dynamicSort(sortt));
                 console.log("Sorted results: " + results);
-                results.forEach(activity=>{
-                    genActivity(activity);
-                    return results;
-                });
+                for(let i=0; i<results.length; i+=1) {
+                    genActivity(results[i]);
+                }
             };
 
             function dynamicSort(property) {

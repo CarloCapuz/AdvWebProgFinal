@@ -54,11 +54,25 @@ class ActivtyModel implements ActivityInterface
     public static function getAll()
     {
         $db = Database::getInstance();
-        $data = $db->query('SELECT * FROM Attractions');
+        $data = $db->query('SELECT image.FilePath, attractions.* FROM image INNER JOIN attractions ON image.AttractionsID=attractions.AttractionsID');
         $activitiesList = [];
+
         foreach ($data as $row)
         {
             $activitiesList[] = new Activity($row);
+        }
+        return $activitiesList;
+    }
+
+    public static function getImages()
+    {
+        $db = Database::getInstance();
+        $data = $db->query('SELECT * FROM image');
+        $activitiesList = [];
+        foreach ($data as $row)
+        {
+           // echo $row;
+            $activitiesList[] = $row;
         }
         return $activitiesList;
     }

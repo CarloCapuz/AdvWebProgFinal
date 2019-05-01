@@ -3,6 +3,7 @@ include_once dirname(__FILE__) . "\..\core\database.php";
 
 class Activity implements JsonSerializable
 {
+    public $ActivityID;
     public $Name;
     public $Address;
     public $City;
@@ -11,11 +12,13 @@ class Activity implements JsonSerializable
     public $Phone;
     public $Website;
     public $Description;
+    public $FilePath;
    // public $TypeID;
 
     public function __construct($activityArray)
     {
         $this->Name = $activityArray['Name'];
+        $this->FilePath = isset($activityArray['FilePath']) ? $activityArray['FilePath'] : '/';
         $this->Address = $activityArray['Address'];
         $this->City = $activityArray['City'];
         $this->Region = $activityArray['Region'];
@@ -29,6 +32,7 @@ class Activity implements JsonSerializable
     public function jsonSerialize()
     {
         return [
+            'FilePath' => $this->FilePath,
             'Name' => $this->Name,
             'Address' => $this->Address,
             'City' => $this->City,
