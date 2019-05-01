@@ -39,6 +39,15 @@ class Database {
         $stmt->execute(array_values($params));
     }
 
+    public function update($table, $whereClause, $params = [])
+    {
+        $db = self::getConnection();
+        $valueString = implode(',', array_fill(0, count($params), '?'));
+        $columnString = implode("=?, ", array_keys($params))."=?";
+        $stmt = $db->prepare("UPDATE {$table} SET {$columnString} WHERE $whereClause");
+        $stmt->execute(array_values($params));
+    }
+
     public function select($table, $whereClause, $params = [])
     {
         $db = self::getDB();
