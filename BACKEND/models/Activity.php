@@ -23,7 +23,24 @@ class ActivtyModel implements ActivityInterface
             'Description' => strip_tags($ActivityName),
             'TypeID' => strip_tags($ActivityType)
         ];
-        $db->insert('Activities', $activity);
+        $db->insert('attractions', $activity);
+        return $activity;
+    }
+
+    public static function update($id, $data) 
+    {
+        $db = Database::getInstance();
+        $activity = [
+            'Name' => strip_tags($data['Name']),
+            'Address' => strip_tags($data['Address']),
+            'City' => strip_tags($data['City']),
+            'Region' => strip_tags($data['Region']),
+            'Postal' => strip_tags($data['Postal']),
+            'Phone' => strip_tags($data['Phone']),
+            'Website' => strip_tags($data['Website']),
+            'Description' => strip_tags($data['Description'])
+        ];
+        $arr = $db->update('attractions', 'AttractionsID='.$id, $data);
         return $activity;
     }
 
@@ -31,7 +48,7 @@ class ActivtyModel implements ActivityInterface
     {
         $db = Database::getInstancec();
 
-        $arr = $db->select('Activities', 'TypeID=?', [$typeID]);
+        $arr = $db->select('attractions', 'TypeID=?', [$typeID]);
         if ($arr)
         {
             return $arr;
@@ -43,7 +60,7 @@ class ActivtyModel implements ActivityInterface
     {
         $db = Database::getInstance();
 
-        $arr = $db->select('Activities', 'ActivityID=?', [$activityID]);
+        $arr = $db->select('attractions', 'attractions=?', [$activityID]);
         if ($arr) 
         {
             return $arr;
