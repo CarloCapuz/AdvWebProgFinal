@@ -1,6 +1,6 @@
 <?php
-
 include_once "../../models/ActivityType.php";
+include_once "../../objects/ActivityType.php";
 
 // activitytype.php?create&typeName=Name
 
@@ -13,5 +13,5 @@ if (isset($_GET['create']) && isset($_GET['typeName']))
 
 if (isset($_GET['getAll']))
 {
-    print_r(json_encode(ActivtyTypeModel::getAll()));
+    print_r(json_encode(ActivityTypeModel::getAll()));
 }

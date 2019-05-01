@@ -1,5 +1,7 @@
 <?php
 include_once dirname(__FILE__) . "\..\core\database.php";
+include_once dirname(__FILE__) . "\..\objects\ActivityType.php";
+include_once dirname(__FILE__) . "\..\interfaces\ActivityType.php";
 
 class ActivityTypeModel implements ActivityTypeInterface
 {
