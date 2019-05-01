@@ -1,16 +1,8 @@
 <?php
-// add the config.php to access database
-require_once('config.php');
-require_once ('Activity.php');
-require_once ('ActivityDao.php');
-require_once ('ActivityDaoMaria.php');
-try {
-    $pdo = new PDO(DBCONNSTRING, DBUSER, DBPASS);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-catch (PDOException $e) {
-    die ( $e->getMessage());
-}
+// require_once ('Activity.php');
+// require_once ('ActivityDao.php');
+// require_once ('ActivityDaoMaria.php');
+
 ?>
 <!DOCTYPE html>
 
@@ -44,23 +36,21 @@ catch (PDOException $e) {
         <a href="https://www.britannica.com/place/Concord-New-Hampshire" target="_blank"><li>HISTORY</li></a>
 
         <a href="?page=attractions"><li>ATTRACTIONS</li></a>
-        <a href="?page=activities"><li>ACTIVITIES</li></a>
         <a href="?page=reset"><li>RESET</li></a>
-        <li class="filter"><form action="">
+        <li class="filter"><form action="index.php" method="GET">
                 <select name="filter">
                     <option value="name">Name</option>
                     <option value="address">Address</option>
                     <option value="city">City</option>
                     <option value="region">Region</option>
                     <option value="postal">Postal</option>
-                    <option value="description">Description</option>
                 </select>
                 <input type="submit">
             </form></li>
 
 
         <script>
-            var filtered = false;
+            var sortt = "";
             var results = [];
             const genActivity = (activity) => {
                 const el = document.createElement('div');
@@ -72,22 +62,22 @@ catch (PDOException $e) {
                         <a href='${activity["Website"]}' target='_blank'><h2>${activity["Name"]}</h2></a>
                     </div>
                     <div class="activity-title">
+                        <img src='${activity['FilePath']}' class='img-rounded' width='500px' height='600px'/><br>
+                    </div>
+                    <div class="activity-title">
                         ${activity['Name']}
                     </div>
                     <div class="activity-description">
                         ${activity['Address']}
                     </div>
                     <div class="activity-topics">
-                        ${activity['City']}
-                    </div>
-                    <div class="activity-topics">
-                        ${activity['Region']}
-                    </div>
-                    <div class="activity-topics">
-                        ${activity['Postal']}
+                        ${activity['City']}, ${activity['Region']} ${activity['Postal']}
                     </div>
                     <div class="activity-topics">
                         ${activity['Phone']}
+                    </div>
+                    <div class="activity-topics">
+                        ${activity['Description']}
                     </div>
                 </div>`;
                 document.getElementById('activities-list').appendChild(el);
@@ -99,19 +89,22 @@ catch (PDOException $e) {
                     genActivity(activity);
                     return activities;
                 });
-            }
-            const fetchSortedActivities = async () => {
+            };
+
+            const fetchSortedActivities = async (sortt) => {
                 let activities = await fetch('../BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
                 console.log(activities);
-                results = activities.sort(dynamicSort("Name"));
+                console.log("Sortt: " + sortt);
+                results = activities.sort(dynamicSort(sortt));
                 console.log("Sorted results: " + results);
                 results.forEach(activity=>{
                     genActivity(activity);
                     return results;
                 });
-            }
+            };
 
             function dynamicSort(property) {
+                console.log("Property: " + property)
                 var sortOrder = 1;
                 if(property[0] === "-") {
                     sortOrder = -1;
@@ -130,75 +123,27 @@ catch (PDOException $e) {
         <?php
         //session_start();
 
-        function outputAttractions() {
-            global $pdo;
-            $sql = 'SELECT attractions.AttractionsID, attractions.Name, attractions.Address, attractions.City, attractions.Region, attractions.Postal, attractions.Website, attractions.Phone, attractions.description, image.FilePath FROM attractions INNER JOIN image ON attractions.AttractionsID = image.AttractionsID ORDER BY NAME';
-            $result = $pdo->query($sql);
-
-            while ($row = $result->fetch()) {
-                // set the variables
-                $name = $row['Name'];
-                $address = $row['Address'];
-                $cityRegionAndPostal = $row['City'] . ", " . $row['Region'] . " " . $row['Postal'];
-                $phone = $row['Phone'];
-                $website = $row['Website'];
-                $picture = $row['FilePath'];
-                $activity = $row['description'];
-
-                echo "<a href='$website' target='_blank'><h2>$name</h2></a>";
-                echo "<img src='$picture' class='img-rounded' width='500px' height='600px'/><br>";
-                echo "<h7>$address</h7><br>";
-                echo "<h7>$cityRegionAndPostal</h7><br>";
-                echo "<h7>$phone</h7><br>";
-                echo "<h7>$activity</h7>";
-            }
-        }
-
         if( isset($_GET['page'])){
-            $_SESSION['Page'] = $_GET['page'];
-            if ($_GET['page'] == 'attractions' || isset($_GET['filter'])) {   // ATTRACTIONS tab
-               // outputAttractions();
-                if (isset($_GET['filter'])) {
-                    echo "<div id='activities'><script>fetchSortedActivities()</script></div>";    
-                } else {
-                    echo "<div id='activities'><script>fetchActivities()</script></div>";
-                }
-            } // end if
-           // else if ($_GET['page'] == 'activities') {   // ACTIVITIES tab
-                // if (isset($_GET['filter'])) {
-                //     echo "<div id='activities'><script>fetchSortedActivities()</script></div>";    
-                // } else {
-                //     echo "<div id='activities'><script>fetchActivities()</script></div>";
-                // }
-              
-           // } // end else if
+            //$_SESSION['Page'] = $_GET['page'];
+            if ($_GET['page'] == 'attractions') {   // ATTRACTIONS tab
+                echo "<div id='activities'><script>fetchActivities();</script></div>";
+            } 
         } // end if isset
 
+        if (isset($_GET['filter']) && $_GET['filter'] == 'name') {
+            echo "<div id='activities'><script>fetchSortedActivities('Name');</script></div>";   
+        } else if (isset($_GET['filter']) && $_GET['filter'] == 'address') {
+            echo "<div id='activities'><script>fetchSortedActivities('Address');</script></div>";
+        } else if (isset($_GET['filter']) && $_GET['filter'] == 'city') {
+            echo "<div id='activities'><script>fetchSortedActivities('City');</script></div>";
+        } else if (isset($_GET['filter']) && $_GET['filter'] == 'region') {
+            echo "<div id='activities'><script>fetchSortedActivities('Region');</script></div>";
+        } else if (isset($_GET['filter']) && $_GET['filter'] == 'postal') {
+            echo "<div id='activities'><script>fetchSortedActivities('Postal');</script></div>";
+        }
 
-        /*if ($_SESSION['Page'] == 'attractions'){
-            outputAttractions();
-        } else if ($_SESSION['Page'] == 'activities'){
-            if (isset($_GET['filter'])) {
-                echo "<div id='activities'><script>fetchSortedActivities()</script></div>";
-            } else {
-                echo "<div id='activities'><script>fetchActivities()</script></div>";
-            }
-            ?>
-            <div class="category-head" id="activities-list"></div>
-            <?php
-        } else {
-            unset($_SESSION['page']);
-        }*/
-        //else if (isset($_GET['filter'])) {
-        // echo "<div id='activities'><script>fetchSortedActivities()</script></div>";
         ?>
         <div class="category-head" id="activities-list"></div>
-        <?php
-        //}
-
-        ?>
-
-
     </ul>
 </nav>
 
