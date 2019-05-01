@@ -1,7 +1,7 @@
 <?php
 include_once dirname(__FILE__) . "\..\core\database.php";
 
-class ActivityTypeModel
+class ActivityTypeModel implements ActivityTypeInterface
 {
     public static function create($typeName)
     {

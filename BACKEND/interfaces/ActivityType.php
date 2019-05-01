@@ -1,5 +1,5 @@
 <?php
-interface ActivityInterface
+interface ActivityTypeInterface
 {
     public static function getAll();
 }
