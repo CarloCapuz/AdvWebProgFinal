@@ -9,7 +9,7 @@ include_once dirname(__FILE__) . "\..\interfaces\Activity.php";
 
 class ActivtyModel implements ActivityInterface
 {
-    public static function create($Name,$Address,$City,$Region,$Postal,$Phone,$Website,$ActivityName,$ActivityType)
+    public static function create($Name,$Address,$City,$Region,$Postal,$Phone,$Website,$ActivityName)
     {
         $db = Database::getInstance();
         $activity = [
@@ -21,7 +21,6 @@ class ActivtyModel implements ActivityInterface
             'Phone' => strip_tags($Phone),
             'Website' => strip_tags($Website),
             'Description' => strip_tags($ActivityName),
-            'TypeID' => strip_tags($ActivityType)
         ];
         $db->insert('attractions', $activity);
         return $activity;
@@ -78,7 +77,7 @@ class ActivtyModel implements ActivityInterface
     public static function getAll()
     {
         $db = Database::getInstance();
-        $data = $db->query('SELECT image.FilePath, attractions.* FROM image INNER JOIN attractions ON image.AttractionsID=attractions.AttractionsID');
+        $data = $db->query('select * from attractions a left join image i on a.AttractionsID = i.AttractionsID');
         $activitiesList = [];
 
         foreach ($data as $row)
