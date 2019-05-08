@@ -18,27 +18,27 @@ $db->execute($typeAssocSQL);
 
 */
 $activitySQL ="CREATE TABLE `Attractions` (
-  `AttractionsID` INTEGER NOT NULL AUTO_INCREMENT, 
-  `Name` VARCHAR(255),  
-  `Address` VARCHAR(255), 
-  `City` VARCHAR(255), 
-  `Region` VARCHAR(255), 
-  `Postal` VARCHAR(255),  
-  `Phone` VARCHAR(255),
-  `Website` VARCHAR(255),
-  `Description` VARCHAR(255),
-  PRIMARY KEY (`AttractionsID`)
+  `attractionsID` INTEGER NOT NULL AUTO_INCREMENT, 
+  `name` VARCHAR(255),  
+  `address` VARCHAR(255), 
+  `city` VARCHAR(255), 
+  `state` VARCHAR(255), 
+  `postal` VARCHAR(255),  
+  `phone` VARCHAR(255),
+  `website` VARCHAR(255),
+  `description` VARCHAR(255),
+  PRIMARY KEY (`attractionsID`)
 ) ENGINE=innodb DEFAULT CHARSET=utf8;";
   
 $db->execute($activitySQL);
 
 $imageSQL ="CREATE TABLE `Image` (
 	`ImageID` INTEGER NOT NULL AUTO_INCREMENT,
-	`AttractionsID` INT,
-	`FilePath` VARCHAR(255),
-	`AltText` VARCHAR(255),
+	`attractionsID` INT,
+	`filePath` VARCHAR(255),
+	`altText` VARCHAR(255),
 	PRIMARY KEY (`ImageID`),
-	FOREIGN KEY (AttractionsID) REFERENCES `Attractions` (AttractionsID)
+	FOREIGN KEY (attractionsID) REFERENCES `Attractions` (attractionsID)
 ) ENGINE=innodb DEFAULT CHARSET=utf8;";
 
 $db->execute($imageSQL);

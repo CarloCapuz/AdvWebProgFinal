@@ -11,51 +11,51 @@ include_once "../../objects/Activity.php";
 // activity.php?update&Name=Test&Address=Test&City=Test&Region=Test&Postal=Test&Phone=Test&Website=Test&Description=Test&ID=1
 
 if (isset($_GET['create']) && 
-    isset($_GET['Name']) &&
-    isset($_GET['Address']) &&
-    isset($_GET['City']) &&
-    isset($_GET['Region']) &&
-    isset($_GET['Postal']) &&
-    isset($_GET['Phone']) &&
-    isset($_GET['Website']) &&
-    isset($_GET['Description'])
+    isset($_GET['name']) &&
+    isset($_GET['address']) &&
+    isset($_GET['city']) &&
+    isset($_GET['state']) &&
+    isset($_GET['postal']) &&
+    isset($_GET['phone']) &&
+    isset($_GET['website']) &&
+    isset($_GET['description'])
     )
 {
-    $activityData = ActivtyModel::create($_GET['Name'],
-                                         $_GET['Address'],
-                                         $_GET['City'],
-                                         $_GET['Region'],
-                                         $_GET['Postal'],
-                                         $_GET['Phone'],
-                                         $_GET['Website'],
-                                         $_GET['Description']
+    $activityData = ActivtyModel::create($_GET['name'],
+                                         $_GET['address'],
+                                         $_GET['city'],
+                                         $_GET['state'],
+                                         $_GET['postal'],
+                                         $_GET['phone'],
+                                         $_GET['website'],
+                                         $_GET['description']
                                         );
     $activity = new Activity($activityData);
     print_r(json_encode($activity));
 }
 
 if (isset($_GET['update']) && 
-    isset($_GET['Name']) &&
-    isset($_GET['Address']) &&
-    isset($_GET['City']) &&
-    isset($_GET['Region']) &&
-    isset($_GET['Postal']) &&
-    isset($_GET['Phone']) &&
-    isset($_GET['Website']) &&
-    isset($_GET['Description']) &&
+    isset($_GET['name']) &&
+    isset($_GET['address']) &&
+    isset($_GET['city']) &&
+    isset($_GET['state']) &&
+    isset($_GET['postal']) &&
+    isset($_GET['phone']) &&
+    isset($_GET['website']) &&
+    isset($_GET['description']) &&
     isset($_GET['ID'])
     )
 {
     $activityData = ActivtyModel::update($_GET['ID'],
         [
-            'Name' => strip_tags($_GET['Name']),
-            'Address' => strip_tags($_GET['Address']),
-            'City' => strip_tags($_GET['City']),
-            'Region' => strip_tags($_GET['Region']),
-            'Postal' => strip_tags($_GET['Postal']),
-            'Phone' => strip_tags($_GET['Phone']),
-            'Website' => strip_tags($_GET['Website']),
-            'Description' => strip_tags($_GET['Description'])
+            'name' => strip_tags($_GET['name']),
+            'address' => strip_tags($_GET['address']),
+            'city' => strip_tags($_GET['city']),
+            'state' => strip_tags($_GET['state']),
+            'postal' => strip_tags($_GET['postal']),
+            'phone' => strip_tags($_GET['phone']),
+            'website' => strip_tags($_GET['website']),
+            'description' => strip_tags($_GET['description'])
         ]
     );
     $activity = new Activity($activityData);

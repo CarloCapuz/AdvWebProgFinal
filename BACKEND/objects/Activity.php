@@ -17,32 +17,32 @@ class Activity implements JsonSerializable
 
     public function __construct($activityArray)
     {
-        $this->Name = $activityArray['Name'];
-        $this->FilePath = isset($activityArray['FilePath']) ? $activityArray['FilePath'] : '/';
-        $this->ActivityID = isset($activityArray['AttractionsID']) ? $activityArray['AttractionsID'] : '0';
-        $this->Address = $activityArray['Address'];
-        $this->City = $activityArray['City'];
-        $this->Region = $activityArray['Region'];
-        $this->Postal = $activityArray['Postal'];
-        $this->Phone = $activityArray['Phone'];
-        $this->Website = $activityArray['Website'];
-        $this->Description = $activityArray['Description'];        
+        $this->Name = $activityArray['name'];
+        $this->FilePath = isset($activityArray['filePath']) ? $activityArray['filePath'] : '/';
+        $this->ActivityID = isset($activityArray['attractionsID']) ? $activityArray['attractionsID'] : '0';
+        $this->Address = $activityArray['address'];
+        $this->City = $activityArray['city'];
+        $this->Region = $activityArray['state'];
+        $this->Postal = $activityArray['postal'];
+        $this->Phone = $activityArray['phone'];
+        $this->Website = $activityArray['website'];
+        $this->Description = $activityArray['description'];        
        // $this->TypeID = $activityArray['TypeID'];        
     }
 
     public function jsonSerialize()
     {
         return [
-            'AttractionID' => $this->ActivityID,
-            'FilePath' => $this->FilePath,
-            'Name' => $this->Name,
-            'Address' => $this->Address,
-            'City' => $this->City,
-            'Region' => $this->Region,
-            'Postal' => $this->Postal,
-            'Phone' => $this->Phone,
-            'Website' => $this->Website,
-            'Description' => $this->Description,
+            'attractionID' => $this->ActivityID,
+            'filePath' => $this->FilePath,
+            'name' => $this->Name,
+            'address' => $this->Address,
+            'city' => $this->City,
+            'state' => $this->Region,
+            'postal' => $this->Postal,
+            'phone' => $this->Phone,
+            'website' => $this->Website,
+            'description' => $this->Description,
             //'TypeID' => $this->TypeID,
         ];
     }

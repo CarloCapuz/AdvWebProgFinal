@@ -54,40 +54,40 @@
 
             const cleanNull = (input) => input == null ? '' : input;
 
-            const genActivity = ({AttractionID, Website, Name, Address, City, Postal, Region, Phone, Description, FilePath}) => {
+            const genActivity = ({attractionID, website, name, address, city, postal, region, phone, description, filePath}) => {
                 const el = document.createElement('div');
-                el.innerHTML = `<div class="activity" data-activityID=${cleanNull(AttractionID)}>
+                el.innerHTML = `<div class="activity" data-activityID=${cleanNull(attractionID)}>
                     <div class="activity-icon">
                         <i class="fas fa-info"></i>
                     </div>
                     <div class="activity-title">
-                        <a href='${cleanNull(Website)}' target='_blank'><h2>${cleanNull(Name)}</h2></a>
+                        <a href='${cleanNull(website)}' target='_blank'><h2>${cleanNull(name)}</h2></a>
                     </div>
                     <div class="activity-title">
-                        <img src='./${cleanNull(FilePath)}' class='img-rounded' width='500px' height='600px'/><br>
+                        <img src='./${cleanNull(filePath)}' class='img-rounded' width='500px' height='600px'/><br>
                     </div>
                     <div class="activity-title">
-                        ${cleanNull(Name)}
+                        ${cleanNull(name)}
                     </div>
                     <div class="activity-description">
-                        ${cleanNull(Address)}
+                        ${cleanNull(address)}
                     </div>
                     <div class="activity-topics">
-                        ${cleanNull(City)}, ${cleanNull(Region)} ${cleanNull(Postal)}
+                        ${cleanNull(city)}, ${cleanNull(region)} ${cleanNull(postal)}
                     </div>
                     <div class="activity-topics">
-                        ${cleanNull(Phone)}
+                        ${cleanNull(phone)}
                     </div>
                     <div class="activity-topics">
-                        ${cleanNull(Description)}
+                        ${cleanNull(description)}
                     </div>
-                    <a href="http://localhost/AdvWebProgFinal-master/BACKEND/api/v1/activity.php?delete&ID=${cleanNull(AttractionID)}">Delete</a>
                 </div>`;
                 document.getElementById('activities-list').appendChild(el);
             };
             const fetchActivities = async () => {
-                let activities = await fetch('../BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
-               // console.log(images);
+                let service = await fetch('../BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
+                let otherService = await fetch('http://localhost/AdvWebFinal/webservice.php?infoType=activity').then(r=>r.json());
+                var activities = service.concat(otherService);
                 console.log(activities);
                 for(let i=0; i<activities.length; i+=1) {
                     genActivity(activities[i]);
@@ -95,7 +95,9 @@
             };
 
             const fetchSortedActivities = async (sortt) => {
-                let activities = await fetch('../BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
+                let service = await fetch('../BACKEND/api/v1/activity.php?getAll').then(r=>r.json());
+                let otherService = await fetch('http://localhost/AdvWebFinal/webservice.php?infoType=activity').then(r=>r.json());
+                var activities = service.concat(otherService);
                 console.log(activities);
                 console.log("Sortt: " + sortt);
                 results = activities.sort(dynamicSort(sortt));
@@ -104,6 +106,15 @@
                     genActivity(results[i]);
                 }
             };
+
+            // const fetchFromOtherWebService = async () => {
+            //     let otherService = await fetch('http://localhost/AdvWebFinal/webservice.php?infoType=activity').then(r=>r.json());
+            //    // console.log(images);
+            //     console.log("Other Service: " + otherService);
+            //     for(let i=0; i<activities.length; i+=1) {
+            //         genActivity(activities[i]);
+            //     }
+            // };
 
             function dynamicSort(property) {
                 console.log("Property: " + property)
@@ -123,25 +134,23 @@
         </script>
 
         <?php
-        //session_start();
 
         if( isset($_GET['page'])){
-            //$_SESSION['Page'] = $_GET['page'];
             if ($_GET['page'] == 'attractions') {   // ATTRACTIONS tab
                 echo "<div id='activities'><script>fetchActivities();</script></div>";
             } 
         } // end if isset
 
         if (isset($_GET['filter']) && $_GET['filter'] == 'name') {
-            echo "<div id='activities'><script>fetchSortedActivities('Name');</script></div>";   
+            echo "<div id='activities'><script>fetchSortedActivities('name');</script></div>";   
         } else if (isset($_GET['filter']) && $_GET['filter'] == 'address') {
-            echo "<div id='activities'><script>fetchSortedActivities('Address');</script></div>";
+            echo "<div id='activities'><script>fetchSortedActivities('address');</script></div>";
         } else if (isset($_GET['filter']) && $_GET['filter'] == 'city') {
-            echo "<div id='activities'><script>fetchSortedActivities('City');</script></div>";
+            echo "<div id='activities'><script>fetchSortedActivities('city');</script></div>";
         } else if (isset($_GET['filter']) && $_GET['filter'] == 'region') {
-            echo "<div id='activities'><script>fetchSortedActivities('Region');</script></div>";
+            echo "<div id='activities'><script>fetchSortedActivities('state');</script></div>";
         } else if (isset($_GET['filter']) && $_GET['filter'] == 'postal') {
-            echo "<div id='activities'><script>fetchSortedActivities('Postal');</script></div>";
+            echo "<div id='activities'><script>fetchSortedActivities('postal');</script></div>";
         }
 
         ?>

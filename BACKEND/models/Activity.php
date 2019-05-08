@@ -13,14 +13,14 @@ class ActivtyModel implements ActivityInterface
     {
         $db = Database::getInstance();
         $activity = [
-            'Name' => strip_tags($Name),
-            'Address' => strip_tags($Address),
-            'City' => strip_tags($City),
-            'Region' => strip_tags($Region),
-            'Postal' => strip_tags($Postal),
-            'Phone' => strip_tags($Phone),
-            'Website' => strip_tags($Website),
-            'Description' => strip_tags($ActivityName),
+            'name' => strip_tags($Name),
+            'address' => strip_tags($Address),
+            'city' => strip_tags($City),
+            'state' => strip_tags($Region),
+            'postal' => strip_tags($Postal),
+            'phone' => strip_tags($Phone),
+            'website' => strip_tags($Website),
+            'description' => strip_tags($ActivityName),
             'TypeID' => strip_tags($ActivityType)
         ];
         $db->insert('attractions', $activity);
@@ -31,24 +31,24 @@ class ActivtyModel implements ActivityInterface
     {
         $db = Database::getInstance();
         $activity = [
-            'Name' => strip_tags($data['Name']),
-            'Address' => strip_tags($data['Address']),
-            'City' => strip_tags($data['City']),
-            'Region' => strip_tags($data['Region']),
-            'Postal' => strip_tags($data['Postal']),
-            'Phone' => strip_tags($data['Phone']),
-            'Website' => strip_tags($data['Website']),
-            'Description' => strip_tags($data['Description'])
+            'name' => strip_tags($data['name']),
+            'address' => strip_tags($data['address']),
+            'city' => strip_tags($data['city']),
+            'state' => strip_tags($data['state']),
+            'postal' => strip_tags($data['postal']),
+            'phone' => strip_tags($data['phone']),
+            'website' => strip_tags($data['website']),
+            'description' => strip_tags($data['description'])
         ];
-        $arr = $db->update('attractions', 'AttractionsID='.$id, $data);
+        $arr = $db->update('attractions', 'attractionsID='.$id, $data);
         return $activity;
     }
 
     public static function delete($id) 
     {
         $db = Database::getInstance();
-        $data = $db->execute('DELETE FROM attractions WHERE AttractionsID='.$id);
-        $data = $db->execute('DELETE FROM image WHERE AttractionsID='.$id);
+        $data = $db->execute('DELETE FROM attractions WHERE attractionsID='.$id);
+        $data = $db->execute('DELETE FROM image WHERE attractionsID='.$id);
     }
 
     public static function getByType($typeID)
@@ -78,7 +78,7 @@ class ActivtyModel implements ActivityInterface
     public static function getAll()
     {
         $db = Database::getInstance();
-        $data = $db->query('SELECT image.FilePath, attractions.* FROM image INNER JOIN attractions ON image.AttractionsID=attractions.AttractionsID');
+        $data = $db->query('SELECT image.filePath, attractions.* FROM image INNER JOIN attractions ON image.attractionsID=attractions.attractionsID');
         $activitiesList = [];
 
         foreach ($data as $row)
