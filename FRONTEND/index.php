@@ -81,6 +81,9 @@
                     <div class="activity-topics">
                         ${cleanNull(description)}
                     </div>
+                    <div>
+                        <a href="http://localhost/AdvWebProgFinal-master/BACKEND/api/v1/activity.php?delete&ID=${cleanNull(attractionID)}">Delete</a>
+                    </div>
                 </div>`;
                 document.getElementById('activities-list').appendChild(el);
             };
